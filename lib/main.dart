@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:financio_app/widgets/circular_particle.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'auth/login.dart';
 import 'views/home.dart';
 
 Future<void> main() async {
@@ -41,35 +38,35 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  checker() async {
-    if (FirebaseAuth.instance.currentUser != null) {
-      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-          .get();
-      Timer(
-          const Duration(seconds: 3),
-          () => Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => FirebaseAuth.instance.currentUser == null
-                    ? PhoneAuthScreen()
-                    : documentSnapshot.exists
-                        ? MainPage()
-                        : PhoneAuthScreen(),
-              ),
-              (route) => false));
-    } else {
-      Timer(
-          const Duration(seconds: 3),
-          () => Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PhoneAuthScreen(),
-              ),
-              (route) => false));
-    }
-  }
+  // checker() async {
+  //   if (FirebaseAuth.instance.currentUser != null) {
+  //     DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+  //         .collection('users')
+  //         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+  //         .get();
+  //     Timer(
+  //         const Duration(seconds: 3),
+  //         () => Navigator.pushAndRemoveUntil(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (context) => FirebaseAuth.instance.currentUser == null
+  //                   ? PhoneAuthScreen()
+  //                   : documentSnapshot.exists
+  //                       ? MainPage()
+  //                       : PhoneAuthScreen(),
+  //             ),
+  //             (route) => false));
+  //   } else {
+  //     Timer(
+  //         const Duration(seconds: 3),
+  //         () => Navigator.pushAndRemoveUntil(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (context) => PhoneAuthScreen(),
+  //             ),
+  //             (route) => false));
+  //   }
+  // }
 
   void navigate() {
     Timer(
@@ -82,6 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
             (route) => false));
   }
 
+//İnternet Kontrolü
   // Future<void> _checkInternetConnection() async {
   //   var connectivityResult = await (Connectivity().checkConnectivity());
   //   if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
